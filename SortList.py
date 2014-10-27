@@ -42,11 +42,14 @@ class Solution:
 			slowPointer = slowPointer.next
 			fastPointer = fastPointer.next.next
 
+		"""
+		注意递归传递的head1所在的链表是必须截断的，所以当slow.next传递给head2保存后，
+		需要将slow.next 变为None
+		"""
 		head1 = head
-		# TODO: Why we need to set head1 = head?
 		head2 = slowPointer.next
-		# TODO: Why slowPointer.next should be set to None?
 		slowPointer.next = None
+
 		head1 = self.sortList(head1)
 		head2 = self.sortList(head2)
 		head = self.merge(head1, head2)
