@@ -66,65 +66,26 @@ def partition(intervals, p, q):
 	pivotPointer = q
 
 	while rightPointer < pivotPointer:
-		#print('left', leftPointer, 'right', rightPointer, 'pivot', pivotPointer)
-		# compare 
 		if compareInterval(intervals[rightPointer], pivotInterval) == None:
-		#	print('compare')
-		#	intervals[rightPointer].printInterval()
-		#	pivotInterval.printInterval()
-		#	print('result == None')
-
 			pivotPointer -= 1
 			swap(intervals, rightPointer, pivotPointer)
 			pivotInterval = merge(pivotInterval, intervals[pivotPointer]) # update pivotInterval
 
-			
-			# for _ in intervals:
-			# 	_.printInterval( )
-
 		elif compareInterval(intervals[rightPointer], pivotInterval) == True:
-			# print('compare')
-			# intervals[rightPointer].printInterval()
-			# pivotInterval.printInterval()
-			# print('result == True')
 			"""
 			Becareful of the order of the following three lines
 			"""
 			leftPointer +=1
-			#print('leftPointer', leftPointer, ' ', 'rightPointer', rightPointer)
 			swap(intervals, leftPointer, rightPointer)
 			rightPointer += 1
 
-			# for _ in intervals:
-			# 	_.printInterval( )
-
 		elif compareInterval(intervals[rightPointer], pivotInterval) == False:
-			# print('compare')
-			# intervals[rightPointer].printInterval()
-			# pivotInterval.printInterval()
-			# print('result == False')
-
 			rightPointer += 1
-			# for _ in intervals:
-			# 	_.printInterval( )
 
 	# Put the pivots back
 
-	# print('********end ************')
-	
-	# print('left')
-	# for _ in intervals[: leftPointer+1]:
-	# 	_.printInterval( )
-
-	# print('pivot')
 	tmpIntervals = intervals[pivotPointer :]
-	# for _ in tmpIntervals:
-	# 	_.printInterval( )
-
 	tmpIntervals2 = intervals[leftPointer+1: rightPointer]
-	# print('right')
-	# for _ in tmpIntervals2:
-	# 	_.printInterval( )
 
 	del intervals[leftPointer+1:]
 	intervals.extend(tmpIntervals)
@@ -142,7 +103,6 @@ def partition(intervals, p, q):
 # print(result)
 # for _ in _intervals:
 # 	_.printInterval( )
-
 
 
 def fuzzySorting(intervals):
