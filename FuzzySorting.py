@@ -53,12 +53,15 @@ def swap(intervals, index1, index2):
 
 
 def partition(intervals, p, q):
-	pivot = random.choice(range(0,len(intervals)))
+	pivot = random.choice(range(p, q+1))
 	swap(intervals, pivot, q)
 
 	pivotInterval = intervals[q]
 	print('Chosen pivot')
 	pivotInterval.printInterval( )
+	print('sort')
+	for _ in intervals[p: q+1]:
+		_.printInterval( )
 	print('********************')
 
 	leftPointer = p - 1
@@ -82,17 +85,32 @@ def partition(intervals, p, q):
 		elif compareInterval(intervals[rightPointer], pivotInterval) == False:
 			rightPointer += 1
 
+		for _ in intervals:
+			_.printInterval( )
+			
+		print ("@@@@@@@@@@@@@@@@@")
+
 	# Put the pivots back
+	tmpIndex = q
+	tmpIndex2 = leftPointer+1
 
-	tmpIntervals = intervals[pivotPointer :]
-	tmpIntervals2 = intervals[leftPointer+1: rightPointer]
+	while tmpIndex >= pivotPointer:
+		swap(intervals, tmpIndex, tmpIndex2)
+		for _ in intervals:
+			_.printInterval( )
+		tmpIndex -= 1
+		tmpIndex2 += 1
 
-	del intervals[leftPointer+1:]
-	intervals.extend(tmpIntervals)
-	intervals.extend(tmpIntervals2)
+
+	# tmpIntervals = intervals[pivotPointer : q]
+	# tmpIntervals2 = intervals[leftPointer+1: rightPointer]
+
+	# del intervals[leftPointer+1: q]
+	# intervals.extend(tmpIntervals)
+	# intervals.extend(tmpIntervals2)
 
 	for _ in intervals:
-	 	_.printInterval( )
+		_.printInterval( )
 	print("$$$$$$$$$$$$$$$$")
 
 	return leftPointer + 1, leftPointer + len(intervals) - pivotPointer + 1
@@ -105,17 +123,20 @@ def partition(intervals, p, q):
 # 	_.printInterval( )
 
 
-def fuzzySorting(intervals):
-	if len(intervals) > 1:
-		pivotLeft, pivotRight = partition(intervals, 0, len(intervals)-1)
-		print('pivotLeft', pivotLeft, 'pivotRight',pivotRight)
-		fuzzySorting(intervals[: pivotLeft])
-		print('left')
-		fuzzySorting(intervals[pivotRight:])
-		print('right')
+def fuzzySorting(intervals, start, end):
+	"""
+	At first, I used some sort of intarvals[:leftpointer] in the recursion.
+	However, note that this returns a copy of the segment of intervals, it doesn't refer to the
+	original intervals. To implement an in-place sort here, I finally changed the recursion 
+	function and added two more variables.
+	"""
+	if start < end:
+		pivotLeft, pivotRight = partition(intervals, start, end)
+		fuzzySorting(intervals, start, pivotLeft)
+		fuzzySorting(intervals, pivotRight, end)
 
 _intervals = [Interval(1,2), Interval(2,3), Interval(6,7), Interval(4,5), Interval(9,10)]		
-fuzzySorting(_intervals)
+fuzzySorting(_intervals, 0, len(_intervals) -1)
 print("*******end*************")
 for _ in _intervals:
 	_.printInterval( )
