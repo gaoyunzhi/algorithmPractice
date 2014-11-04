@@ -16,6 +16,9 @@ class Solution:
 	# @return a ListNode
 
 	# k may be larger than the length, thus need the length of the list
+	"""
+	Careful: examine basic cases
+	"""
 	def lengthList(self, head):
 		pointer = head
 		length = 0
