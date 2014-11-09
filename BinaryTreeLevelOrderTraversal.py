@@ -24,6 +24,7 @@ class Solution:
 		level = 0
 		self.preOrderTraverse(root, level, res)
 		return res
+	
 
 
 
