@@ -20,6 +20,8 @@ class Solution:
 
 
 	def maxDepth(self, root):
+		if root == None:
+			return 0
 		max_level = [1]
 		self.search(root, 1, max_level)
 		return max_level[0]
