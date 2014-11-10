@@ -11,20 +11,10 @@ class Solution:
 	# @return a boolean
 	def isSameTree(self, p, q):
 		# basic case
-		if (not p) and (not q):
+		if p == None and q == None:
 			return True
-		elif p and (not q):
-			return False
-		elif (not p) and q:
-			return False
-		else:
-			if p.right and q.right and p.right.val == q.right.val:
-				isSameTree(p.right, q.right)
-				isSameTree(p.left, q.left)
-			elif p.right and q.left and p.right.val == q.left.val:
-				isSameTree(p.right, q.left)
-				isSameTree(p.left, q.right)
-			else:
-				return False
-		return True
+		if p and q:
+			return p.val == q.val and self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+		return False
+
 
