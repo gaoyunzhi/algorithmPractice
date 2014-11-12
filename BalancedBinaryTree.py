@@ -47,8 +47,7 @@ class Solution:
 			if node.left == None and node.right == None:
 				# exam leaf node
 				is_balanced = True
-				max_depth = 1
-				return (is_balanced, max_depth)
+				return (is_balanced, 1)
 			else:
 				# not leaf node
 				is_balanced_left, max_depth_left = self.helpBalanced(node.left)
